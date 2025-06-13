@@ -6,6 +6,7 @@ priority = 0
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
+match_indent = true
 pattern = 'function Card:calculate_joker(context)'
 position = 'at'
 payload = '''
@@ -22,6 +23,7 @@ end
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
+match_indent = true
 pattern = 'local _scale = 0.7'
 position = 'before'
 payload = '''
