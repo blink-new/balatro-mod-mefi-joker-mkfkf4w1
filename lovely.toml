@@ -1,0 +1,64 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'function Card:calculate_joker(context)'
+position = 'at'
+payload = '''
+if context.destroying_card and next(context.destroying_card) then
+    for k, v in pairs(G.jokers.cards) do
+        if v.ability.name == 'j_mefi' then
+            v.ability.extra = v.ability.extra + 0.5
+            card_eval_status_text(v, 'extra', nil, nil, nil, {message = "X"..v.ability.extra.." Mult!", colour = G.C.MULT})
+        end
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'local _scale = 0.7'
+position = 'before'
+payload = '''
+-- Mefi Joker Definition
+local mefi_joker = {
+    object_type = "Joker",
+    name = "j_mefi",
+    key = "mefi",
+    config = {extra = 1},
+    pos = {x = 0, y = 0},
+    loc_txt = {
+        name = 'Mefi',
+        text = {
+            "{X:mult,C:white}X#1#{} Mult",
+            "Gains {X:mult,C:white}X0.5{} Mult",
+            "for every destroyed card"
+        }
+    },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    eternal_compat = true,
+    effect = "",
+    cost_mult = 1.0,
+    enhancement_gate = 'none',
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra}},
+                Xmult_mod = card.ability.extra
+            }
+        end
+    end
+}
+
+-- Register the joker
+SMODS.Joker(mefi_joker)
+'''

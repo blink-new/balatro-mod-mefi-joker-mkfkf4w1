@@ -1,0 +1,26 @@
+{
+  "name": "Mefi Joker",
+  "version": "1.0.0",
+  "author": "Blink Community",
+  "description": "A rare joker that gains X0.5 mult for every destroyed playing card",
+  "id": "mefi_joker_mod",
+  "target_game_version": "1.0.1n",
+  "dependencies": {
+    "lovely": ">=0.5.0",
+    "steamodded": ">=1.0.0"
+  },
+  "features": [
+    "New rare joker: Mefi",
+    "Scaling multiplier mechanic",
+    "Blueprint compatible",
+    "Eternal compatible"
+  ],
+  "tags": [
+    "joker",
+    "rare",
+    "scaling",
+    "multiplier"
+  ],
+  "website": "https://github.com/your-repo/mefi-joker-mod",
+  "license": "MIT"
+}
